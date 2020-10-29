@@ -46,7 +46,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/bendeguz/.config/awesome/themes/default/theme.lua")
+beautiful.init("/home/bendeguz/.config/awesome/themes/theme1/theme.lua")
 local nice = require("nice")
 nice {
     titlebar_height = 30,
