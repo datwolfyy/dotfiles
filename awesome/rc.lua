@@ -19,6 +19,18 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- Wibar separator
+local notification_separator = wibox.widget {
+	widget = wibox.widget.separator,
+	orientation = "vertical",
+	forced_width = 10,
+	color = "#ffffff",
+}
+
+-- Widgets
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -46,7 +58,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/bendeguz/.config/awesome/themes/theme1/theme.lua")
+beautiful.init("/home/bendeguz/.config/awesome/themes/theme6/theme.lua")
 local nice = require("nice")
 nice {
     titlebar_height = 30,
@@ -63,7 +75,7 @@ nice {
 }
 
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -77,7 +89,7 @@ modkey = "Mod4"
 -- Customize notifications
 beautiful.notification_font = "sans 10"
 beautiful.notification_bg = "#21211e"
-beautiful.notification_shape = gears.shape.rounded_rect
+beautiful.notification_shape = gears.shape.rectangle
 beautiful.notification_margin = 30
 beautiful.notification_spacing = 8
 
@@ -112,7 +124,9 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end },
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu
+					--beautiful.awesome_icon
+								},
                                     { "open terminal", terminal }
                                   }
                         })
@@ -125,7 +139,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
--- mykeyboardlayout = awful.widget.keyboardlayout()
+mykeyboardlayout = awful.widget.keyboardlayout()
 --[[ kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
 kbdcfg.layout = { { "uk", "" }, { "hu", "" } }
@@ -146,6 +160,15 @@ end
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+local cw = calendar_widget({
+	theme =  'nord',
+	placement = 'top_right'
+})
+
+mytextclock:connect_signal("button::press",
+	function(_,_,_, button)
+		if button == 1 then cw.toggle() end
+	end)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -228,6 +251,59 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = taglist_buttons
     }
     
+    if s ~= screen.primary then
+		-- Create a tasklist widget                            	
+                s.mytasklist = awful.widget.tasklist {
+                    screen  = s,
+                    filter  = awful.widget.tasklist.filter.currenttags,
+                    buttons = tasklist_buttons,
+                    style = {
+                    	shape = gears.shape.rounded_rect,
+			shape_border_width = 1,
+			-- theme5
+			--shape_border_color = "#754a46"
+			shape_border_color = "#2e2b3b"
+                    },
+                    layout = {
+                    	spacing = 7,
+                    	layout = wibox.layout.fixed.horizontal
+                    }
+                }
+                                                                        
+                -- Create the wibox
+                s.mywibox = awful.wibar({ stretch = false, width = 1875,
+					 height = 20,
+					 position = "top",
+					 opacity = 1, screen = s,
+                                         bg = beautiful.bg_normal })
+                                                                        
+                -- Add widgets to the wibox
+                 s.mywibox:setup {
+                   layout = wibox.layout.align.horizontal,
+                    { -- Left widgets
+                        layout = wibox.layout.fixed.horizontal,
+			wibox.widget.textclock("%H:%M", 60),
+			notification_separator,
+                        --mylauncher,
+                        --s.mytaglist,
+                        --s.mypromptbox,
+                    },
+                    s.mytasklist, -- Middle widget
+                    { -- Right widgets
+                        layout = wibox.layout.fixed.horizontal,
+			mykeyboardlayout,
+                        cpu_widget({
+                    	width = 100,
+                    	step_width = 2,
+                    	step_spacing = 0,
+                    	color = '#ffffff'
+                        }),
+			notification_separator,
+                        s.mylayoutbox,
+                    },
+                }
+		return
+	end
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -235,34 +311,50 @@ awful.screen.connect_for_each_screen(function(s)
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
 	style = {
-		shape_border_width = 0,
-		shape = gears.shape.rect
+		shape = gears.shape.rounded_rect,
+		shape_border_width = 1,
+		-- theme5
+		--shape_border_color = "#754a46"
+		shape_border_color = "#2e2b3b"
 	},
 	layout = {
 		spacing = 7,
-		layout = wibox.layout.flex.horizontal
-	}
+		layout = wibox.layout.fixed.horizontal
+	},
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s,
-                             bg = beautiful.bg_normal .. "55" })
+     s.mywibox = awful.wibar({ stretch = false, width = 1875,
+     				 height = 20,
+				 position = "top",
+				 opacity = 1, screen = s,
+                                 bg = beautiful.bg_normal })
+                                                                        
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
+     s.mywibox:setup {
+       layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
+            --mylauncher,
+            wibox.widget.systray(),
+	    notification_separator,
+            --s.mytaglist,
+            --s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
-        { -- Right widgets
+	{ -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            --kbdcfg.widget,
-            wibox.widget.systray(),
-            mytextclock,
+	    mykeyboardlayout,
+	    cpu_widget({
+		width = 65,
+		step_width = 2,
+		step_spacing = 0,
+		color = '#ffffff'
+	    }),
+	    notification_separator,
+	    mytextclock,
+	    notification_separator,
             s.mylayoutbox,
         },
     }
@@ -520,7 +612,11 @@ awful.rules.rules = {
           "Blueman-manager",
           "Gpick",
           "Kruler",
+	  "imv",
+	  "mpv",
+	  "Droidcam",
           "MessageWin",  -- kalarm.
+	  "Pavucontrol",
           "Sxiv",
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
