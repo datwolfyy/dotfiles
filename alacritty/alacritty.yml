@@ -175,13 +175,22 @@
 # Primary and dimmed colors needed
 
 colors:
-  # Default colors
+  # Téma színek:
+  # theme1: '#1b1024'
+  # theme2: '#24160c'
+  # theme3: ''
+  # theme4: '#1268c4', 003e80
+  # theme5: '#0c161c'
+  # theme6: '#09091A'
   primary:
-    background: '#1b1024' #Background from Dark Theme
+    background: '#09091A'
   cursor:
       text: '#F81CE5'
-      cursor: '#ffffff'
-# Normal colors
+#     cursor: '#ffffff'
+# theme5
+      cursor: '#D6D4CC'
+
+# Normal colors (default)
   normal:
     black:   '#000000'
     red:     '#fe0100'
@@ -192,7 +201,29 @@ colors:
     cyan:    '#00ffff'
     white:   '#d0d0d0'
 
-# Bright colors
+# Normal colours (theme5)
+#  normal:
+#    black:  '#0c161c'
+#    red:    '#916a64'
+#    green:  '#4c8a71'
+#    yellow: '#a48b75'
+#    blue:   '#527886'
+#    magenta: '#42a5b0'
+#    cyan:   '#63e0f5'
+#    white:  '#d6d4cc'
+
+# Bright colors (theme5)
+#  bright:
+#    black:      '#bfbeb8'	
+#    red:        '#916a64'
+#    green:      '#4c8a71'
+#    yellow:     '#a48b75'
+#    blue:       '#527886'
+#    magenta:    '#42a5b0'
+#    cyan:       '#63e0f5'
+#    white:      '#d6d4cc'
+
+# Bright colors (default)
   bright:
     black:   '#808080'
     red:     '#fe0100'
@@ -202,7 +233,7 @@ colors:
     magenta: '#cc00ff'
     cyan:    '#00ffff'
     white:   '#FFFFFF'  
-  
+
   # Dim colors
   #dim:
   #  black:   '#232323'
@@ -321,7 +352,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.5
+background_opacity: 0.70
 
 #selection:
   # This string contains all characters that are used as separators for "semantic words" in Alacritty.
