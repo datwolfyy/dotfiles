@@ -48,6 +48,18 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+# dwm statusbar date
+#while true; do
+#	xsetroot -name "$( date +"%F %R" )"
+#	sleep 1m
+#done &
+
+
+setxkbmap -model pc104alt -layout gb,hu -variant , -option grp:win_space_toggle
+numlockx &
 albert &
 exec picom -b &
+# Add wallpaper for dwm
+#hsetroot -center /mnt/data/Downloads/wp/1_cut.jpg &
+#exec dwm
 exec awesome
