@@ -258,7 +258,7 @@ awful.screen.connect_for_each_screen(function(s)
                     filter  = awful.widget.tasklist.filter.currenttags,
                     buttons = tasklist_buttons,
                     style = {
-                    	shape = gears.shape.rounded_rect,
+                    	shape = gears.shape.rectangle,
 			shape_border_width = 1,
 			-- theme5
 			--shape_border_color = "#754a46"
@@ -311,7 +311,7 @@ awful.screen.connect_for_each_screen(function(s)
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
 	style = {
-		shape = gears.shape.rounded_rect,
+		shape = gears.shape.rectangle,
 		shape_border_width = 1,
 		-- theme5
 		--shape_border_color = "#754a46"
@@ -363,7 +363,7 @@ end)
 
 -- {{{ Mouse bindings 2
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 2, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -467,9 +467,9 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    -- Albert launcher
-    awful.key({ modkey }, "s", function() awful.util.spawn_with_shell("albert toggle") end,
-              {description = "show Albert", group = "launcher"})
+    -- Rofi launcher
+    awful.key({ modkey }, "s", function() awful.util.spawn_with_shell("rofi -modi window,run,combi -combi-modi run,window -show combi -theme solarized -font \"Droid Sans Mono 12\" -kb-row-select \"Tab\" -kb-row-tab \"\" -run-shell-command \"kitty -e '{cmd}'\"") end,
+              {description = "show Rofi run", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
