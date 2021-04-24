@@ -49,7 +49,7 @@ local notification_separator = wibox.widget {
 	color = __theme.fg_normal,
 }
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
