@@ -1,0 +1,50 @@
+##### Sample Yashrc #####
+# This is a sample initialization script for yash. Copy this file to ~/.yashrc
+# and add your favorite customization to it.
+
+alias ls='ls --color=auto'
+alias wacom-osu='xsetwacom set 14 MapToOutput HDMI-A-0 && xsetwacom set 14 Area 4000 3100 10120 7200'
+alias wacom-reset='xsetwacom set 14 ResetArea'
+
+#source /usr/share/doc/pkgfile/command-not-found.bash
+# nge theme: 38;5;166
+# cthulu theme: 38;5;30
+export HOSTNAME=`uname -n`
+
+#PS1='\[\e[38;5;166;1m\]${LOGNAME}\fD@\[\e[38;5;51;1m\]${HOSTNAME}\fD:${${${PWD:/$HOME/\~}##*/}:-$PWD} \fo$PS1\fD'
+PS1='\[\e[38;5;166;1m\]$LOGNAME\fD@\[\e[38;5;51;1m\]${HOSTNAME%%.*}\fD:${${${PWD:/$HOME/\~}##*/}:-$PWD} \fo\$\fD '
+#PS1='${${${PWD:/$HOME/\~}##*/}:-$PWD} > '
+export PATH="${PATH}:${HOME}/.local/bin"
+export RUA_SUDO_COMMAND="doas"
+
+# Firstly, load the common customization script.
+# If you don't like settings applied in this script, remove this line.
+#. --autoload --no-alias initialization/common
+
+# These are additional aliases that are not defined in the common script.
+# Uncomment to enable them.
+#alias g='grep'
+#alias l='$PAGER'
+#alias --global L='|$PAGER'
+#alias --global N='>/dev/null 2>&1' N1='>/dev/null' N2='2>/dev/null'
+
+# Uncomment to enable direnv support. (jq required)
+#_update_direnv() {
+#  eval "$(
+#    direnv export json |
+#    jq -r 'to_entries | .[] |
+#    if .value == null then
+#      @sh "unset \(.key)"
+#    else
+#      @sh "export \(.key)=\(.value)"
+#    end'
+#  )"
+#}
+#_update_direnv
+#YASH_AFTER_CD=("$YASH_AFTER_CD" '_update_direnv')
+
+# And add your own customization below.
+
+
+
+# vim: set et sw=2 sts=2 tw=78 ft=sh:

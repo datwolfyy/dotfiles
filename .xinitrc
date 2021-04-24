@@ -8,15 +8,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-
-
-
-
-
-
-
     xrdb -merge $sysresources
-
 fi
 
 if [ -f $sysmodmap ]; then
@@ -24,21 +16,16 @@ if [ -f $sysmodmap ]; then
 fi
 
 if [ -f "$userresources" ]; then
-
-
-
-
-
-
-
     xrdb -merge "$userresources"
-
 fi
 
 if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
+# exec .xprofile
+[ -f /etc/xprofie ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
 # start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
@@ -48,18 +35,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# dwm statusbar date
-#while true; do
-#	xsetroot -name "$( date +"%F %R" )"
-#	sleep 1m
-#done &
-
-
 setxkbmap -model pc104alt -layout gb,hu -variant , -option grp:win_space_toggle
-numlockx &
-albert &
-exec picom -b &
-# Add wallpaper for dwm
-#hsetroot -center /mnt/data/Downloads/wp/1_cut.jpg &
-#exec dwm
+lxpolkit &
+volctl &
+exec picom -b --experimental-backend &
 exec awesome
