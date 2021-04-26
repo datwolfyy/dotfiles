@@ -427,6 +427,11 @@ awful.keyboard.append_global_keybindings({
               {description = "show the menubar", group = "launcher"}),
     awful.key({  }, "Print", function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
               {description = "take a screenshot of selected area", group = "screen"}),
+-- laptophoz
+    awful.key({ modkey }, "=", function () awful.util.spawn_with_shell("brightnessctl set 10%+") end,
+	      {description = "increase brightness by 10%", group = "screen"}),
+    awful.key({ modkey }, "-", function () awful.util.spawn_with_shell("brightnessctl sel 10%-") end,
+	      {description = "decrease brightness by 10%", group = "screen"})
 })
 
 -- Tags related keybindings
