@@ -10,10 +10,7 @@ alias wacom-reset='xsetwacom set 14 ResetArea'
 # nge theme: 38;5;166
 # cthulu theme: 38;5;30
 export HOSTNAME=`uname -n`
-
-#PS1='\[\e[38;5;166;1m\]${LOGNAME}\fD@\[\e[38;5;51;1m\]${HOSTNAME}\fD:${${${PWD:/$HOME/\~}##*/}:-$PWD} \fo$PS1\fD'
 PS1='\[\e[38;5;166;1m\]$LOGNAME\fD@\[\e[38;5;51;1m\]${HOSTNAME%%.*}\fD:${${${PWD:/$HOME/\~}##*/}:-$PWD} \fo\$\fD '
-#PS1='${${${PWD:/$HOME/\~}##*/}:-$PWD} > '
 export PATH="${PATH}:${HOME}/.local/bin"
 export RUA_SUDO_COMMAND="doas"
 

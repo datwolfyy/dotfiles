@@ -49,7 +49,7 @@ local notification_separator = wibox.widget {
 	color = __theme.fg_normal,
 }
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -427,6 +427,11 @@ awful.keyboard.append_global_keybindings({
               {description = "show the menubar", group = "launcher"}),
     awful.key({  }, "Print", function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
               {description = "take a screenshot of selected area", group = "screen"}),
+-- laptophoz
+    awful.key({ modkey }, "=", function () awful.util.spawn_with_shell("brightnessctl set 10%+") end,
+	      {description = "increase brightness by 10%", group = "screen"}),
+    awful.key({ modkey }, "-", function () awful.util.spawn_with_shell("brightnessctl sel 10%-") end,
+	      {description = "decrease brightness by 10%", group = "screen"})
 })
 
 -- Tags related keybindings
