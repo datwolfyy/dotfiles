@@ -7,10 +7,11 @@ local gears = require("gears")
 
 local gfs = require("gears.filesystem")
 local themes_path = "/home/bendeguz/.config/awesome/themes/"
+local theme_path = themes_path .. "white/"
 
 local theme = {}
 
-theme.font          = "FreeSans 9"
+theme.font          = "Fira Mono 9"
 
 theme.bg_normal     = "#7B99C4"
 theme.bg_focus      = "#6580a8"
@@ -44,6 +45,10 @@ theme.menubar_font = "FreeSans 12"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
+theme.titlebar_bg_normal = theme.bg_focus .. "89"
+theme.titlebar_fg_normal = theme.fg_normal
+theme.titlebar_bg_focus = theme.bg_normal .. "B5"
+theme.titlebar_fg_focus = theme.fg_focus
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
@@ -53,17 +58,6 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
 )
-
-theme.tasklist_spacing = 5
-
-theme.tasklist_shape_border_width = 1
-theme.tasklist_shape_border_color = "#6580a8"
-
-theme.tasklist_shape_border_width_focus = 1
-theme.tasklist_shape_border_color_focus = "#4f5b70"
-theme.tasklist_shape_border_width_minimized = 1
-theme.tasklist_align = "center"
-theme.tasklist_shape_border_color_minimized = "#6580a8"
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -77,45 +71,60 @@ theme.notification_margin = 0
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path.."white/submenu.png"
+theme.menu_submenu_icon = theme_path.."submenu.png"
 theme.menu_height = dpi(20)
 theme.menu_width  = dpi(130)
+
+theme.tasklist_shape = gears.shape.rect
+theme.tasklist_minimized = "_"
 
 -- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
--- Define the image to load
-
-theme.wallpaper = themes_path.."white/background.png"
+theme.wallpaper = theme_path.."background.png"
 
 -- You can use your own layout icons like this:
-theme.layout_fairh = themes_path.."white/layouts/fairh.png"
-theme.layout_fairv = themes_path.."white/layouts/fairv.png"
-theme.layout_floating  = themes_path.."white/layouts/floating.png"
-theme.layout_magnifier = themes_path.."white/layouts/magnifier.png"
-theme.layout_max = themes_path.."white/layouts/max.png"
-theme.layout_fullscreen = themes_path.."white/layouts/fullscreen.png"
-theme.layout_tilebottom = themes_path.."white/layouts/tilebottom.png"
-theme.layout_tileleft   = themes_path.."white/layouts/tileleft.png"
-theme.layout_tile = themes_path.."white/layouts/tile.png"
-theme.layout_tiletop = themes_path.."white/layouts/tiletop.png"
-theme.layout_spiral  = themes_path.."white/layouts/spiral.png"
-theme.layout_dwindle = themes_path.."white/layouts/dwindle.png"
-theme.layout_cornernw = themes_path.."white/layouts/cornernw.png"
-theme.layout_cornerne = themes_path.."white/layouts/cornerne.png"
-theme.layout_cornersw = themes_path.."white/layouts/cornersw.png"
-theme.layout_cornerse = themes_path.."white/layouts/cornerse.png"
+theme.layout_fairh = theme_path.."layouts/fairhw.png"
+theme.layout_fairv = theme_path.."layouts/fairvw.png"
+theme.layout_floating  = theme_path.."layouts/floatingw.png"
+theme.layout_magnifier = theme_path.."layouts/magnifierw.png"
+theme.layout_max = theme_path.."layouts/maxw.png"
+theme.layout_fullscreen = theme_path.."layouts/fullscreenw.png"
+theme.layout_tilebottom = theme_path.."layouts/tilebottomw.png"
+theme.layout_tileleft   = theme_path.."layouts/tileleftw.png"
+theme.layout_tile = theme_path.."layouts/tilew.png"
+theme.layout_tiletop = theme_path.."layouts/tiletopw.png"
+theme.layout_spiral  = theme_path.."layouts/spiralw.png"
+theme.layout_dwindle = theme_path.."layouts/dwindlew.png"
+theme.layout_cornernw = theme_path.."layouts/cornernww.png"
+theme.layout_cornerne = theme_path.."layouts/cornernew.png"
+theme.layout_cornersw = theme_path.."layouts/cornersww.png"
+theme.layout_cornerse = theme_path.."layouts/cornersew.png"
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
     theme.menu_height, theme.bg_focus, theme.fg_focus
 )
 
+mode = "light"
+
+theme.titlebar_close_button_focus       =  theme_path.."titlebar/close_" .. mode .. ".png"
+theme.titlebar_close_button_focus_hover =  theme_path.."titlebar/close_hover_" .. mode .. ".png"
+
+theme.titlebar_maximized_button_focus_active       =  theme_path.."titlebar/maximize_" .. mode .. ".png"
+theme.titlebar_maximized_button_focus_active_hover =  theme_path.."titlebar/maximize_hover_" .. mode .. ".png"
+
+theme.titlebar_maximized_button_focus_inactive       =  theme_path.."titlebar/maximize_" .. mode .. ".png"
+theme.titlebar_maximized_button_focus_inactive_hover =  theme_path.."titlebar/maximize_hover_" .. mode .. ".png"
+
+theme.titlebar_minimize_button_focus       =  theme_path.."titlebar/minimize_" .. mode .. ".png"
+theme.titlebar_minimize_button_focus_hover =  theme_path.."titlebar/minimize_hover_" .. mode .. ".png"
+
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "Arc"
+theme.icon_theme = "Papirus-Light"
 
 -- Set different colors for urgent notifications.
 rnotification.connect_signal('request::rules', function()

@@ -35,8 +35,6 @@ theme.border_color_normal = "#000000"
 theme.border_color_active = "#244D85"
 theme.border_color_marked = "#91231c"
 
-
-
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
@@ -49,6 +47,10 @@ theme.border_color_marked = "#91231c"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 theme.taglist_bg_empty = "#19345C"
+theme.titlebar_bg_normal = theme.bg_focus .. "89"
+theme.titlebar_fg_normal = theme.fg_normal
+theme.titlebar_bg_focus = theme.bg_normal .. "B5"
+theme.titlebar_fg_focus = theme.fg_focus
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(3)
@@ -64,7 +66,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
-theme.notification_font = "Nunito Regular 11"
+theme.notification_font = "IBM Plex Sans Text 12"
 theme.notification_bg = "#234470"
 theme.notification_fg = "#ffffff"
 theme.notification_border_color = "#1D5FB8"

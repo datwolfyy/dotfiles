@@ -14,6 +14,8 @@ local naughty = require("naughty")
 local ruled = require("ruled")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- Launch menu and desktop icons
+local freedesktop = require("freedesktop")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -48,11 +50,19 @@ settings_menu = {
     { "quit awesome", function() awesome.quit() end }
 }
 
-rightclick_menu = awful.menu({ items = { { "launch...", function() menubar.show() end  },
+rightclick_menu = freedesktop.menu.build({
+	after = {
+		{ "settings", settings_menu },
+		{ "open terminal", terminal }
+	},
+	sub_menu = "programs"
+})
+
+--[[rightclick_menu = awful.menu({ items = { { "launch...", programs_menu  },
 					 { "settings", settings_menu },
                                          { "open terminal", terminal }
                                         }
-                            })
+                            })--]]
 
 menubar.utils.terminal = terminal
 menubar.show_categories = false
@@ -570,11 +580,7 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c, {
         size = 20,
-        position = "top",
-        bg_normal = "#3C3C3C99",
-        fg_normal = "#ffffff",
-        bg_focus = "#000000A5",
-        fg_focus = "#ffffff"
+        position = "top"
     }).widget = {
         { -- Left
             { -- Title

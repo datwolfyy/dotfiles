@@ -7,6 +7,7 @@ local gears = require("gears")
 
 local gfs = require("gears.filesystem")
 local themes_path = "/home/bendeguz/.config/awesome/themes/"
+local theme_path = themes_path .. "nge/"
 
 local theme = {}
 
@@ -45,6 +46,11 @@ theme.hotkeys_modifiers_fg = "#000000"
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 theme.taglist_bg_empty = theme.bg_normal
+theme.titlebar_bg_normal = theme.bg_focus .. "89"
+theme.titlebar_fg_normal = theme.fg_normal
+theme.titlebar_bg_focus = theme.bg_normal .. "B5"
+theme.titlebar_fg_focus = theme.fg_focus
+
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(3)
@@ -67,7 +73,7 @@ theme.notification_border_color = "#B2610A"
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path.."nge/submenu.png"
+theme.menu_submenu_icon = theme_path.."submenu.png"
 theme.menu_height = dpi(20)
 theme.menu_width  = dpi(130)
 
@@ -78,36 +84,48 @@ theme.tasklist_shape = gears.shape.rect
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
--- Define the image to load
-
-theme.wallpaper = themes_path.."nge/background.jpg"
+theme.wallpaper = theme_path.."background.jpg"
 
 -- You can use your own layout icons like this:
-theme.layout_fairh = themes_path.."nge/layouts/fairh.png"
-theme.layout_fairv = themes_path.."nge/layouts/fairv.png"
-theme.layout_floating  = themes_path.."nge/layouts/floating.png"
-theme.layout_magnifier = themes_path.."nge/layouts/magnifier.png"
-theme.layout_max = themes_path.."nge/layouts/max.png"
-theme.layout_fullscreen = themes_path.."nge/layouts/fullscreen.png"
-theme.layout_tilebottom = themes_path.."nge/layouts/tilebottom.png"
-theme.layout_tileleft   = themes_path.."nge/layouts/tileleft.png"
-theme.layout_tile = themes_path.."nge/layouts/tile.png"
-theme.layout_tiletop = themes_path.."nge/layouts/tiletop.png"
-theme.layout_spiral  = themes_path.."nge/layouts/spiral.png"
-theme.layout_dwindle = themes_path.."nge/layouts/dwindle.png"
-theme.layout_cornernw = themes_path.."nge/layouts/cornernw.png"
-theme.layout_cornerne = themes_path.."nge/layouts/cornerne.png"
-theme.layout_cornersw = themes_path.."nge/layouts/cornersw.png"
-theme.layout_cornerse = themes_path.."nge/layouts/cornerse.png"
+theme.layout_fairh = theme_path.."layouts/fairh.png"
+theme.layout_fairv = theme_path.."layouts/fairv.png"
+theme.layout_floating  = theme_path.."layouts/floating.png"
+theme.layout_magnifier = theme_path.."layouts/magnifier.png"
+theme.layout_max = theme_path.."layouts/max.png"
+theme.layout_fullscreen = theme_path.."layouts/fullscreen.png"
+theme.layout_tilebottom = theme_path.."layouts/tilebottom.png"
+theme.layout_tileleft   = theme_path.."layouts/tileleft.png"
+theme.layout_tile = theme_path.."layouts/tile.png"
+theme.layout_tiletop = theme_path.."layouts/tiletop.png"
+theme.layout_spiral  = theme_path.."layouts/spiral.png"
+theme.layout_dwindle = theme_path.."layouts/dwindle.png"
+theme.layout_cornernw = theme_path.."layouts/cornernw.png"
+theme.layout_cornerne = theme_path.."layouts/cornerne.png"
+theme.layout_cornersw = theme_path.."layouts/cornersw.png"
+theme.layout_cornerse = theme_path.."layouts/cornerse.png"
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
     theme.menu_height, theme.bg_focus, theme.fg_focus
 )
 
+mode = "dark"
+
+theme.titlebar_close_button_focus       =  theme_path.."titlebar/close_" .. mode .. ".png"
+theme.titlebar_close_button_focus_hover =  theme_path.."titlebar/close_hover_" .. mode .. ".png"
+
+theme.titlebar_maximized_button_focus_active       =  theme_path.."titlebar/maximize_" .. mode .. ".png"
+theme.titlebar_maximized_button_focus_active_hover =  theme_path.."titlebar/maximize_hover_" .. mode .. ".png"
+
+theme.titlebar_maximized_button_focus_inactive       =  theme_path.."titlebar/maximize_" .. mode .. ".png"
+theme.titlebar_maximized_button_focus_inactive_hover =  theme_path.."titlebar/maximize_hover_" .. mode .. ".png"
+
+theme.titlebar_minimize_button_focus       =  theme_path.."titlebar/minimize_" .. mode .. ".png"
+theme.titlebar_minimize_button_focus_hover =  theme_path.."titlebar/minimize_hover_" .. mode .. ".png"
+
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "Luna-Dark"
+theme.icon_theme = "Papirus-Dark"
 
 -- Set different colors for urgent notifications.
 rnotification.connect_signal('request::rules', function()
