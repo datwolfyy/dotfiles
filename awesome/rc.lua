@@ -30,9 +30,9 @@ naughty.connect_signal("request::display_error", function(message, startup)
     }
 end)
 -- }}}
-beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/forest/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/fantasy/theme.lua")
 
-terminal = "alacritty"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -115,7 +115,7 @@ local bar_disk_usage = awful.widget.watch(
     { awful.util.shell, "-c", "df -BM | awk '/^\\// {print $3\"/\"$2;exit}'" },
     180,
     function (widget, stdout)
-        widget:set_text("💾: "..stdout)
+        widget:set_text("disk: "..stdout)
     end
 )
 -- CPU temperature
@@ -123,7 +123,7 @@ local bar_cpu_temp = awful.widget.watch(
     { awful.util.shell, "-c", "sensors | awk '/Package/ {print $4}'" },
     3,
     function (widget, stdout)
-        widget:set_text("🌡: "..stdout)
+        widget:set_text("temp: "..stdout)
     end
 )
 -- RAM usage
@@ -131,7 +131,7 @@ local bar_ram_usage = awful.widget.watch(
     { awful.util.shell, "-c", "free -m | awk '/Mem:/ {print $3\"M\"\"/\"$2\"M\"}'" },
     3,
     function (widget, stdout)
-        widget:set_text("🧠: "..stdout)
+        widget:set_text("mem: "..stdout)
     end
 )
 
@@ -232,7 +232,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         }
     }
 
-    s.wibox = awful.wibar({ position = "bottom", screen = s, height = 20})
+    s.wibox = awful.wibar({ position = "bottom", screen = s, height = 22})
 
     s.wibox.widget = {
         layout = wibox.layout.align.horizontal,
@@ -246,14 +246,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             bar_separator,
-            bar_ram_usage,
-            bar_separator,
             bar_cpu_temp,
             bar_separator,
-            bar_disk_usage,
+            bar_ram_usage,
             bar_separator,
+            --bar_disk_usage,
+            --bar_separator,
             bar_textclock,
-	        bar_separator,
+	    bar_separator,
             bar_keyboardlayout,
             bar_separator,
             s.layoutbox
@@ -565,7 +565,14 @@ naughty.connect_signal("request::display", function(n)
 end)
 
 -- }}}
-
+client.connect_signal("manage", function (c)
+	c.size_hints_honor = false
+    if awesome.startup
+      and not c.size_hints.user_position
+      and not c.size_hints.program_position then
+        awful.placement.no_offscreen(c)
+    end
+end)
 -- Titlebars
 client.connect_signal("request::titlebars", function(c)
     -- titlebar buttons

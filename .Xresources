@@ -1,10 +1,11 @@
-URxvt.font: xft:Source Code Pro:pixelsize=15
+URxvt.font: xft:IBM Plex Mono:pixelsize=15
+URxvt.internalBorder: 4
 URxvt.scrollBar: false
 URxvt.depth: 32
-URxvt.background: rgba:0000/0000/0000/ccc0
+!URxvt.background: rgb:0000/0000/0000
 
-*.foreground: #FFFFFF
-*.background: #000000
+*.foreground: #F2F2F2
+*.background: #232323
 *.cursorColor: #FFFFFF
 
 ! black
@@ -24,8 +25,8 @@ URxvt.background: rgba:0000/0000/0000/ccc0
 *.color11: #FFFF00
 
 ! blue
-*.color4: #0000EE
-*.color12: #5C5CFF
+*.color4: #063EE5
+*.color12: #5C8CFF
 
 ! pink
 *.color5: #CD00CD
