@@ -30,7 +30,7 @@ naughty.connect_signal("request::display_error", function(message, startup)
     }
 end)
 -- }}}
-beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/fantasy/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/current/theme.lua")
 
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
@@ -148,7 +148,7 @@ end)
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.tag({"🌍", "🎵", ">_", "🎮"}, s, awful.layout.layouts[1])
+    awful.tag({"1", "2", "3", "4", "5"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.promptbox = awful.widget.prompt()
@@ -326,6 +326,20 @@ awful.keyboard.append_global_keybindings({
             end
         end,
         {description = "go back", group = "client"}),
+    awful.key({  }, "XF86AudioPlay", function () awful.spawn.with_shell("playerctl play-pause") end,
+              {description = "play/pause music", group = "client"}),
+    awful.key({  }, "XF86AudioStop", function () awful.spawn.with_shell("playerctl stop") end,
+              {description = "stop music", group = "client"}),
+    awful.key({  }, "XF86AudioPrev", function () awful.spawn.with_shell("playerctl previous") end,
+              {description = "play last song", group = "client"}),
+    awful.key({  }, "XF86AudioNext", function () awful.spawn.with_shell("playerctl next") end,
+              {description = "play next song", group = "client"}),
+    awful.key({  }, "XF86AudioMute", function() awful.spawn.with_shell("playerctl volume 0") end,
+              {description = "mute music", group = "client"}),
+    awful.key({  }, "XF86AudioLowerVolume", function () awful.spawn.with_shell("playerctl volume 0.05-") end,
+              {description = "lower music volume", group = "client"}),
+    awful.key({  }, "XF86AudioRaiseVolume", function () awful.spawn.with_shell("playerctl volume 0.05+") end,
+              {description = "raise music volume", group = "client"}),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,

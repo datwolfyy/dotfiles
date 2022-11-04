@@ -7,16 +7,16 @@ local gears = require("gears")
 
 local gfs = require("gears.filesystem")
 local themes_path = "/home/bendeguz/.config/awesome/themes/"
-local theme_path = themes_path .. "fantasy/"
+local theme_path = themes_path .. "unix/"
 
 local theme = {}
 
-theme.font          = "Fira Mono 9"
+theme.font          = "Liberation Sans Bold 9"
 
 theme.useless_gap         = dpi(0)
-theme.border_width        = dpi(1)
+theme.border_width        = dpi(2)
 theme.border_color_normal = "#000000"
-theme.border_color_active = "#6A773A"
+theme.border_color_active = "#900000"
 theme.border_color_marked = "#91231c"
 
 theme.bg_normal     = "#232323"
@@ -45,9 +45,9 @@ theme.hotkeys_modifiers_fg = "#000000"
 -- prompt_[fg|bg|fg_cursor|bg_cursor|font]
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
-theme.titlebar_bg_normal = theme.bg_focus .. "89"
-theme.titlebar_fg_normal = theme.fg_normal
-theme.titlebar_bg_focus = theme.bg_normal .. "B5"
+theme.titlebar_bg_normal = "#C0C0C0"
+theme.titlebar_fg_normal = "#7A1616"
+theme.titlebar_bg_focus = "#7A1616"
 theme.titlebar_fg_focus = theme.fg_focus
 
 theme.taglist_bg_empty = theme.bg_normal
