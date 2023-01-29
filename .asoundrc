@@ -1,3 +1,4 @@
+defaults.ctl.card 0
 pcm.!default {
 	type plug
 	slave.pcm "dmixed"
@@ -19,7 +20,7 @@ pcm.dmixed  {
 			channels 2
 			pcm {
 				type hw
-				card 1
+				card PCH
 			}
 			format S24_LE
 			rate 192000
@@ -32,10 +33,32 @@ pcm.dmixed  {
 			1 1
 		}
 	}
-	capture.pcm "hw:1"
+	capture.pcm {
+		type dsnoop
+		ipc_key 432854
+		ipc_perm 0660
+		ipc_gid audio
+
+		slave {
+			channels 2
+			pcm {
+				type hw
+				card PCH
+			}
+			format S24_LE
+			rate 192000
+			period_time 0
+			period_size 1024
+			buffer_size 8192
+		}
+		bindings {
+			0 0
+			1 1
+		}
+	}
 }
 
-pcm.inHDMI {
+pcm.outHDMI {
 	type plug
 	slave.pcm "mixHDMI"
         hint {
@@ -48,7 +71,7 @@ pcm.mixHDMI {
 	type dmix
 	ipc_key 1024
 	slave {
-		pcm "hw:HDMI,0"
+		pcm "hw:HDMI,3"
                 period_time 0
                 period_size 1024
                 buffer_size 8192
