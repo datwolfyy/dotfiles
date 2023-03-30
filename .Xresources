@@ -1,11 +1,13 @@
 URxvt.font: xft:IBM Plex Mono:pixelsize=15
-URxvt.internalBorder: 4
+URxvt.internalBorder: 5
 URxvt.scrollBar: false
 URxvt.depth: 32
-! URxvt.background: rgb:0000/0000/0000
+!URxvt.background: rgb:0000/0000/0000
 
 *.foreground: #F2F2F2
-*.background: #232323
+*.fg: #F2F2F2
+*.background: #131317
+*.bg: #131317
 *.cursorColor: #FFFFFF
 
 ! black

@@ -16,7 +16,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 xrdb -merge ~/.Xresources
 
 xset b 0
-/usr/libexec/xfce-polkit &
+/usr/lib/xfce-polkit/xfce-polkit &
 #mpd --no-daemon &
 #udiskie -n -t -A &
 exec dbus-run-session awesome

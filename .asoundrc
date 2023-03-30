@@ -4,7 +4,7 @@ pcm.!default {
 	slave.pcm "dmixed"
 	hint {
 		show on
-		decription "default sound"
+		description "default sound"
 	}
 }
 
@@ -12,7 +12,7 @@ pcm.dmixed  {
  	type asym
 	playback.pcm {
 		type dmix
-		ipc_key 5678293
+		ipc_key 345
 		ipc_perm 0660
 		ipc_gid audio
 
@@ -25,7 +25,7 @@ pcm.dmixed  {
 			format S24_LE
 			rate 192000
 			period_time 0
-			period_size 1024
+			period_size 2048
 			buffer_size 8192
 		}
 		bindings {
@@ -35,7 +35,7 @@ pcm.dmixed  {
 	}
 	capture.pcm {
 		type dsnoop
-		ipc_key 432854
+		ipc_key 32143
 		ipc_perm 0660
 		ipc_gid audio
 
@@ -48,7 +48,7 @@ pcm.dmixed  {
 			format S24_LE
 			rate 192000
 			period_time 0
-			period_size 1024
+			period_size 2048
 			buffer_size 8192
 		}
 		bindings {
