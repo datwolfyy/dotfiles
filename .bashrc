@@ -17,4 +17,3 @@ PS1='\[\e[38;5;160;1m\]\u\[\e[m\]@\[\e[38;5;33;1m\]\h\[\e[m\]:\W \[\e[1m\]\$\[\e
 export EDITOR="vim"
 export PATH="${PATH}:${HOME}/.local/bin"
 export RUA_SUDO_COMMAND="doas"
-export OPENAI_KEY="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"
