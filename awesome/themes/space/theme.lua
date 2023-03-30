@@ -16,13 +16,14 @@ theme.font          = "Fira Mono 9"
 theme.useless_gap         = dpi(0)
 theme.border_width        = dpi(1)
 theme.border_color_normal = "#000000"
-theme.border_color_active = "#5C151B"
+theme.border_color_active = "#1D1D57"
 theme.border_color_marked = "#91231c"
 
-theme.bg_normal     = "#232323"
+--theme.bg_normal     = "#232323"
+theme.bg_normal     = "#131317"
 theme.bg_focus      = "#000000"
 theme.bg_urgent     = theme.border_color_active
-theme.bg_minimize   = "#191919"
+theme.bg_minimize   = "#05050B"
 theme.bg_systray    = theme.bg_normal
 theme.systray_icon_spacing = 4
 

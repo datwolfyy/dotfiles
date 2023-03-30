@@ -32,7 +32,7 @@ end)
 -- }}}
 beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/current/theme.lua")
 
-terminal = "urxvt"
+terminal = "zutty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
