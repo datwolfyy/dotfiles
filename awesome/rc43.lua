@@ -11,6 +11,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- Launch menu and desktop icons
+local freedesktop = require("freedesktop")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -42,13 +44,16 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-themename = "bsd"
+themename = "current"
 beautiful.init("~/.config/awesome/themes/" .. themename .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "zutty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+
+-- Autostart
+awful.spawn.with_shell(gears.filesystem.get_configuration_dir() .. "autorun.sh")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -87,14 +92,24 @@ myawesomemenu = {
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
 }
-
+--[[
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal }
                                   }
                         })
-
+--]]
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
+
+rightclick_menu = freedesktop.menu.build({
+    before = {
+        { "awesome", myawesomemenu, beautiful.awesome_icon }
+    },
+    after = {
+        { "open terminal", terminal }
+    },
+    sub_menu = "programs"
+})
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -107,6 +122,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%H:%M:%S", 1)
+-- Calendar
 month_calendar = awful.widget.calendar_popup.month()
 month_calendar:attach(mytextclock, "br")
 -- Create a wibox for each screen and add it
@@ -199,36 +215,42 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ position = "bottom", screen = s, height = 22 })
 
     local bar_separator = wibox.widget {
-	widget = wibox.widget.separator,
-	orientation = "vertical",
-	forced_width = 10,
-	color = beautiful.get().fg_normal
+        widget = wibox.widget.separator,
+        orientation = "vertical",
+        forced_width = 10,
+        color = beautiful.get().fg_normal
     }
     local tasklist_separator = wibox.widget {
-	widget = wibox.widget.separator,
-	orientation = "horizontal",
-	forced_width = 40,
-	visible = true,
-	color = "#00000000"
+        widget = wibox.widget.separator,
+        orientation = "horizontal",
+        forced_width = 40,
+        visible = true,
+        color = "#00000000"
     }
-    local bar_battery = awful.widget.watch(
-    	{ awful.util.shell, "-c", "/home/bendeguz/.config/awesome/batt.sh"},
-	1,
-	function (widget, stdout)
-		widget:set_text("power: " .. stdout)
-	end)
-    local bar_bright = awful.widget.watch(
-    	{ awful.util.shell, "-c", "backlight | awk '{print $2\"%\"}'"},
-	1,
-	function (widget, stdout)
-		widget:set_text("bright: " .. stdout)
-	end)
-    local bar_vol = awful.widget.watch(
-    	{ awful.util.shell, "-c", "mixer vol | awk '{split($7,a,\":\");print a[1]\"%\"}'"},
-	1,
-	function (widget, stdout)
-		widget:set_text("vol: " .. stdout)
-	end)
+    -- Disk usage
+    local bar_disk_usage = awful.widget.watch(
+        { awful.util.shell, "-c", "df -BG | awk '{if($6==\"/home\"){print $3\"/\"$2;exit}}'" },
+        60,
+        function (widget, stdout)
+            widget:set_text("home: "..stdout)
+        end
+    )
+    -- CPU temperature
+    local bar_cpu_temp = awful.widget.watch(
+        { awful.util.shell, "-c", "sensors | awk '/Package/ {print $4}'" },
+        3,
+        function (widget, stdout)
+            widget:set_text("temp: "..stdout)
+        end
+    )
+    -- RAM usage
+    local bar_ram_usage = awful.widget.watch(
+        { awful.util.shell, "-c", "free -m | awk '/Mem:/ {print $3\"M\"\"/\"$2\"M\"}'" },
+        3,
+        function (widget, stdout)
+            widget:set_text("mem: "..stdout)
+        end
+    )
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
@@ -244,11 +266,11 @@ awful.screen.connect_for_each_screen(function(s)
 	    bar_separator,
             mykeyboardlayout,
 	    bar_separator,
-	    bar_vol,
+	    bar_cpu_temp,
 	    bar_separator,
-	    bar_bright,
+	    bar_ram_usage,
 	    bar_separator,
-	    bar_battery,
+	    bar_disk_usage,
 	    bar_separator,
             mytextclock,
 	    bar_separator,
@@ -260,7 +282,7 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () rightclick_menu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -276,9 +298,9 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({            }, "Print",     function() awful.spawn.with_shell("maim -s screenshots/$(date +%s).png") end,
+    awful.key({            }, "Print",     function() awful.spawn.with_shell("maim -s screenshots/$(date +%s%N).png") end,
               {description="take a screenshot of a selected area", group="screen"}),
-    awful.key({ "Shift" }, "Print",     function() awful.spawn.with_shell("maim screenshots/$(date +%s).png") end,
+    awful.key({ "Shift" }, "Print",     function() awful.spawn.with_shell("maim screenshots/$(date +%s%N).png") end,
               {description="take a screenshot of the whole screen", group="screen"}),
     awful.key({  }, "XF86AudioPlay", function () awful.spawn.with_shell("playerctl play-pause") end,
               {description = "play/pause music", group = "client"}),
@@ -307,7 +329,7 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    awful.key({ modkey,           }, "w", function () rightclick_menu:show() end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
