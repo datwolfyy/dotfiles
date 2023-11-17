@@ -11,7 +11,7 @@ local theme_path = themes_path .. "space/"
 
 local theme = {}
 
-theme.font          = "Fira Mono 9"
+theme.font          = "B612 Mono 9"
 
 theme.useless_gap         = dpi(0)
 theme.border_width        = dpi(1)
