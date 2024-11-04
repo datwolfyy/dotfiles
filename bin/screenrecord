@@ -1,0 +1,26 @@
+#!/bin/sh
+
+fdate=$(date "+%Y-%m-%d %H-%M-%S")
+filename="$HOME/screenrecord/${fdate}.mkv"
+
+ffmpeg \
+	-vaapi_device /dev/dri/renderD128 \
+	-f sndio \
+	-thread_queue_size 4096 \
+	-i snd/0.mon \
+	-f sndio \
+	-thread_queue_size 4096 \
+	-i snd/0 \
+	-filter_complex amix=inputs=2:duration=first \
+	-f x11grab \
+	-thread_queue_size 4096 \
+	-video_size 1920x1080 \
+	-framerate 60 \
+	-i :0 \
+	-vf "format=nv12,hwupload" \
+	-c:v hevc_vaapi \
+	-qp 18 \
+	-c:a flac \
+	-b:a 160k \
+	-ar 48000 \
+	"$filename"
