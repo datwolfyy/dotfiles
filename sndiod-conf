@@ -1,0 +1,3 @@
+#!/bin/sh
+
+OPTS="-s default -m play,mon -s mon"
