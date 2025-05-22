@@ -13,21 +13,21 @@ local theme = {}
 
 theme.font          = "B612 Mono 8"
 
-theme.bg_normal     = "#A6BED6"
-theme.bg_focus      = "#90AAC3"
+theme.bg_normal     = "#e7e0d6"
+theme.bg_focus      = "#b8b3a0"
 theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#8AA0B4"
+theme.bg_minimize   = "#989380"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#304860"
 theme.fg_focus      = "#000000"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#283847"
+theme.fg_urgent     = "#ff0000"
+theme.fg_minimize   = "#dadada"
 
 theme.useless_gap   = dpi(2)
 theme.border_width  = dpi(1)
-theme.border_normal = "#000000"
-theme.border_focus  = "#92AAC2"
+theme.border_normal = "#b8b3a0"
+theme.border_focus  = "#000000"
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
@@ -69,8 +69,8 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path.."43w/submenu.png"
-theme.menu_height = dpi(20)
-theme.menu_width  = dpi(130)
+theme.menu_height = dpi(22)
+theme.menu_width  = dpi(150)
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -107,7 +107,7 @@ theme.titlebar_maximized_button_focus_inactive_hover  = themes_path.."43w/titleb
 theme.titlebar_maximized_button_focus_active= themes_path.."43w/titlebar/maximize_light.png"
 theme.titlebar_maximized_button_focus_active_hover  = themes_path.."43w/titlebar/maximize_hover_light.png"
 
-theme.wallpaper = themes_path.."43w/svalbard2_med.jpg"
+theme.wallpaper = themes_path.."43w/fan-wennan-21-bg.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."43w/layouts/fairh.png"
@@ -134,8 +134,12 @@ theme.awesome_icon = theme_assets.awesome_icon(
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "Papirus-Dark"
+theme.icon_theme = "Papirus-Light"
 
+theme.wibar_stretch = true
+theme.wibar_border_width = 1
+theme.wibar_border_color = "#777777"
+theme.wibar_height = 26
 return theme
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

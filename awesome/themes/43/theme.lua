@@ -80,11 +80,11 @@ theme.menu_width  = dpi(130)
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path.."43/titlebar/close_dark.png"
 theme.titlebar_close_button_focus  = themes_path.."43/titlebar/close_dark.png"
-theme.titlebar_close_button_focus_hover  = themes_path.."43/titlebar/close_hover_dark.png"
+theme.titlebar_close_button_focus_hover  = themes_path.."43/titlebar/close_hover_color.png"
 
 theme.titlebar_minimize_button_normal = themes_path.."43/titlebar/minimize_dark.png"
 theme.titlebar_minimize_button_focus  = themes_path.."43/titlebar/minimize_dark.png"
-theme.titlebar_minimize_button_focus_hover  = themes_path.."43/titlebar/minimize_hover_dark.png"
+theme.titlebar_minimize_button_focus_hover  = themes_path.."43/titlebar/minimize_hover_color.png"
 
 theme.titlebar_ontop_button_normal_inactive = themes_path.."43/titlebar/ontop_normal_inactive.png"
 theme.titlebar_ontop_button_focus_inactive  = themes_path.."43/titlebar/ontop_focus_inactive.png"
@@ -103,11 +103,12 @@ theme.titlebar_floating_button_normal_active = themes_path.."43/titlebar/floatin
 theme.titlebar_floating_button_focus_active  = themes_path.."43/titlebar/floating_focus_active.png"
 
 theme.titlebar_maximized_button_focus_inactive  = themes_path.."43/titlebar/maximize_dark.png"
-theme.titlebar_maximized_button_focus_inactive_hover  = themes_path.."43/titlebar/maximize_hover_dark.png"
+theme.titlebar_maximized_button_focus_inactive_hover  = themes_path.."43/titlebar/maximize_hover_color.png"
 theme.titlebar_maximized_button_focus_active= themes_path.."43/titlebar/maximize_dark.png"
-theme.titlebar_maximized_button_focus_active_hover  = themes_path.."43/titlebar/maximize_hover_dark.png"
+theme.titlebar_maximized_button_focus_active_hover  = themes_path.."43/titlebar/maximize_hover_color.png"
 
 theme.wallpaper = themes_path.."43/ur1.jpg"
+--theme.wallpaper = themes_path.."43/auchynnikau.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."43/layouts/fairhw.png"
@@ -129,12 +130,12 @@ theme.layout_cornerse = themes_path.."43/layouts/cornersew.png"
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
+    theme.menu_height+5, theme.bg_focus, theme.fg_focus
 )
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "Papirus-Light"
+theme.icon_theme = "Papirus-Dark"
 
 return theme
 
